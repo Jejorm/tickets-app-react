@@ -9,28 +9,28 @@ import { WelcomePage } from './pages/WelcomePage'
 import { WebSocketProvider } from './context/WebSocketContext'
 
 export default function TicketsApp() {
-  return (
-    <WebSocketProvider url="ws://localhost:3200">
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<WelcomePage />} />
-            <Route path="/desk/select" element={<DeskSelectPage />} />
-            <Route path="/desk/:deskNumber" element={<DeskPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
+	return (
+		<WebSocketProvider url="wss://tickets-app-vael.onrender.com">
+			<BrowserRouter>
+				<Routes>
+					<Route element={<AppLayout />}>
+						<Route path="/" element={<WelcomePage />} />
+						<Route path="/desk/select" element={<DeskSelectPage />} />
+						<Route path="/desk/:deskNumber" element={<DeskPage />} />
+						<Route path="*" element={<NotFoundPage />} />
+					</Route>
 
-          <Route
-            element={<AppLayout showHeader={false} contentWidth="contained" />}
-          >
-            <Route path="/kiosk" element={<KioskPage />} />
-          </Route>
+					<Route
+						element={<AppLayout showHeader={false} contentWidth="contained" />}
+					>
+						<Route path="/kiosk" element={<KioskPage />} />
+					</Route>
 
-          <Route element={<AppLayout showHeader={false} contentWidth="full" />}>
-            <Route path="/board" element={<BoardPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </WebSocketProvider>
-  )
+					<Route element={<AppLayout showHeader={false} contentWidth="full" />}>
+						<Route path="/board" element={<BoardPage />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</WebSocketProvider>
+	)
 }
