@@ -1,75 +1,87 @@
-# React + TypeScript + Vite
+# 🎫 Tickets App - Real-Time Queue System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación de gestión de turnos y colas de espera de alto rendimiento, construida con **React 19**, **TypeScript** y **WebSockets** nativos. Diseñada para ser rápida, visualmente clara y totalmente reactiva.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Funcionalidades Principales
 
-## React Compiler
+El sistema está dividido en tres roles principales que interactúan en tiempo real:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+1.  **Kiosco (Kiosk):** Interfaz para que los clientes soliciten su turno. Soporta turnos normales y preferenciales.
+2.  **Escritorio (Desk):** Panel para los operadores. Permite ver el turno actual, llamar al siguiente cliente y gestionar la atención desde un escritorio específico.
+3.  **Pantalla Pública (Board):** Una vista de alta visibilidad para salas de espera que muestra los últimos turnos llamados y el historial reciente con animaciones fluidas.
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Stack Tecnológico
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   **Frontend:** React 19 (utilizando el nuevo hook `use`).
+-   **Bundler:** Vite 8.
+-   **Lenguaje:** TypeScript (Tipado estricto para mensajes de Socket y Modelos).
+-   **Estilos:** Tailwind CSS 4.
+-   **Comunicación:** WebSockets Nativos (sin dependencias externas para máxima eficiencia).
+-   **Enrutamiento:** React Router 7.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🏗️ Arquitectura del Proyecto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+La aplicación sigue patrones de diseño modernos para separar la lógica de infraestructura de la UI:
+
+-   `src/context/`: Gestión centralizada del ciclo de vida del WebSocket (reconexión automática, listeners).
+-   `src/hooks/`: Abstracciones de dominio (como `useSocketTicket`) para interactuar con la cola sin tocar el socket directamente.
+-   `src/layouts/`: Plantillas de diseño reutilizables para diferentes anchos de pantalla (Contained vs Full).
+-   `src/types/`: Definición de protocolos de comunicación (Mensajes Cliente/Servidor).
+
+---
+
+## 🔧 Instalación y Uso
+
+### Requisitos Previos
+-   [Bun](https://bun.sh/) (Recomendado por el `bun.lock`) o Node.js v18+.
+-   Tener el servidor de backend (WebSockets) corriendo en el puerto `3200`.
+
+### 1. Clonar e Instalar
+```bash
+# Instalar dependencias con Bun
+bun install
+
+# O con NPM
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Desarrollo
+Para iniciar el servidor de desarrollo con Hot Module Replacement (HMR):
+```bash
+npm run dev
 ```
+
+### 3. Construcción para Producción
+Para generar un build optimizado:
+```bash
+npm run build
+```
+Los archivos se generarán en la carpeta `dist/`.
+
+---
+
+## 🖥️ Cómo utilizar la aplicación
+
+Una vez que la aplicación esté corriendo, podés acceder a las siguientes rutas:
+
+-   `/`: Pantalla de bienvenida.
+-   `/kiosk`: Para generar nuevos tickets (Ideal para tablets en la entrada).
+-   `/desk/select`: Para que un operador elija su número de escritorio.
+-   `/board`: Pantalla principal para la sala de espera (Muestra quién debe pasar y a qué escritorio).
+
+---
+
+## 📝 Notas de Implementación
+
+-   **Reconexión:** El sistema cuenta con una estrategia de reconexión exponencial si se pierde la conexión con el servidor.
+-   **Rendimiento:** Utiliza el **React Compiler** para optimizar las re-renderizaciones automáticamente.
+-   **Estilos:** Los colores de los badges y estados se gestionan mediante utilidades dinámicas en `src/utils/badge-class.ts`.
+
+---
+Creado con ❤️ para la gestión eficiente de flujos de personas.
