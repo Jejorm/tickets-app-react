@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#9333EA"/>
+    </linearGradient>
+    
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FCD34D"/>
+    </linearGradient>
+    
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <path d="M 120 120
+             L 380 120
+             A 40 40 0 0 1 420 160
+             L 420 210
+             A 40 40 0 0 0 420 290
+             L 420 340
+             A 40 40 0 0 1 380 380
+             L 120 380
+             A 40 40 0 0 1 80 340
+             L 80 290
+             A 40 40 0 0 0 80 210
+             L 80 160
+             A 40 40 0 0 1 120 120
+             Z" fill="url(#bgGrad)"/>
+  </g>
+
+  <rect x="140" y="150" width="220" height="200" rx="20" fill="#111827"/>
+  
+  <circle cx="160" cy="170" r="4" fill="#374151"/>
+  <circle cx="340" cy="170" r="4" fill="#374151"/>
+  <circle cx="160" cy="330" r="4" fill="#374151"/>
+  <circle cx="340" cy="330" r="4" fill="#374151"/>
+
+  <circle cx="250" cy="250" r="65" fill="none" stroke="#10B981" stroke-width="6" filter="url(#glow)"/>
+  <circle cx="250" cy="250" r="50" fill="none" stroke="#34D399" stroke-width="2" stroke-dasharray="8 4" opacity="0.8"/>
+
+  <g transform="translate(250, 250) scale(1.3)">
+    <polygon points="0,-20 6,-7 20,-5 10,5 12,19 0,13 -12,19 -10,5 -20,-5 -6,-7" fill="url(#accentGrad)"/>
+  </g>
+</svg>
